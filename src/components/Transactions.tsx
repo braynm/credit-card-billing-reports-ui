@@ -1,3 +1,4 @@
+import { Fragment } from 'react'
 import {
   Table,
   TableBody,
@@ -22,7 +23,7 @@ import {
   SelectValue,
 } from "@/components/ui/select"
 import { Input } from './ui/input'
-import { Search } from 'lucide-react'
+import { Search, TrendingUp } from 'lucide-react'
 
 
 const transactions = [
@@ -177,81 +178,85 @@ const transactions = [
 
 export function Transactions() {
   return (
-    <Card className="container mx-auto rw-full border w-3xl ">
-      <CardHeader className='text-left'>
-        <CardTitle>
-          <div className='flex justify-between'>
-            <h1 className='text-2xl font-bold'>Transactions</h1>
-            <div className='flex gap-1'>
-              <Input type="text" className='w-[140px] border-border' placeholder="Search" />
-              <Select>
-                <SelectTrigger className="w-[140px] border-border">
-                  <SelectValue placeholder="Select Period" />
-                </SelectTrigger>
-                <SelectContent>
-                  <SelectItem value="apple">Current Year</SelectItem>
-                  <SelectItem value="banana">Previous Year</SelectItem>
-                  <SelectItem value="blueberry">Current Quarter</SelectItem>
-                  <SelectItem value="grapes">Previous Quarter</SelectItem>
-                  <SelectItem disabled value="pineapple">Custom Date</SelectItem>
-                </SelectContent>
-              </Select>
-            </div>
+    <>
+      <Card className="border w-[300px] mb-5">
+        <CardContent className='text-left gap-2'>
+          <div className='flex items-between mb-5'>
+            <p className='flex gap-1 text-xs font-medium items-center text-muted-foreground'>
+              Jan to Dec 2025
+            </p>
+            <p className='flex ml-auto gap-1 text-xs font-medium items-center text-muted-foreground'>
+              <TrendingUp />
+              -25%
+            </p>
           </div>
-        </CardTitle>
-        <CardDescription>
-          Jan to Dec 2025 period
-        </CardDescription>
-      </CardHeader>
-      <CardContent>
-        <Table>
-          <TableHeader>
-            <TableRow>
-              <TableHead className="text-left bold">Card Number</TableHead>
-              <TableHead className="text-left bold">Sale Date</TableHead>
-              <TableHead className="text-left bold">Post Date</TableHead>
-              <TableHead className="text-left bold">Description</TableHead>
-              <TableHead className="text-right bold">Amount</TableHead>
-            </TableRow>
-          </TableHeader>
-          <TableBody>
-            {transactions.map((transaction) => (
-              <TableRow key={transaction.card_number} className="p-5 odd:bg-muted/50">
-                <TableCell className="text-left">{transaction.card_number}</TableCell>
-                <TableCell className="font-medium text-left">{transaction.sale_date}</TableCell>
-                <TableCell className="text-left">{transaction.post_date}</TableCell>
-                <TableCell className="text-left">{transaction.description}</TableCell>
-                <TableCell className="text-right">PHP {transaction.amount}</TableCell>
+          <p className='text-xs uppercase text-muted-foreground font-semibold tracking-tight'>Total Amount</p>
+          <p className='text-3xl font-bold'>PHP 50,000.00</p>
+        </CardContent>
+      </Card>
+      <Card className="container mx-auto rw-full border w-3xl ">
+        <CardHeader className='text-left'>
+          <CardTitle>
+            <div className='flex justify-between'>
+              <h1 className='text-2xl font-bold'>Transactions</h1>
+              <div className='flex gap-1'>
+                <Input type="text" className='w-[140px] border-border' placeholder="Search" />
+                <Select>
+                  <SelectTrigger className="w-[140px] border-border">
+                    <SelectValue placeholder="Sort by" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="apple">Amount high to low</SelectItem>
+                    <SelectItem value="apple">Amount low to high</SelectItem>
+                    <SelectItem value="banana">Latest sale date</SelectItem>
+                    <SelectItem value="banana">Oldest sale date</SelectItem>
+                  </SelectContent>
+                </Select>
+                <Select>
+                  <SelectTrigger className="w-[140px] border-border">
+                    <SelectValue placeholder="Select Period" />
+                  </SelectTrigger>
+                  <SelectContent>
+                    <SelectItem value="apple">Current Year</SelectItem>
+                    <SelectItem value="banana">Previous Year</SelectItem>
+                    <SelectItem value="blueberry">Current Quarter</SelectItem>
+                    <SelectItem value="grapes">Previous Quarter</SelectItem>
+                    <SelectItem disabled value="pineapple">Custom Date</SelectItem>
+                  </SelectContent>
+                </Select>
+              </div>
+            </div>
+          </CardTitle>
+          <CardDescription>
+
+          </CardDescription>
+        </CardHeader>
+        <CardContent>
+          <Table>
+            <TableHeader>
+              <TableRow>
+                <TableHead className="text-left bold">Card Number</TableHead>
+                <TableHead className="text-left bold">Sale Date</TableHead>
+                <TableHead className="text-left bold">Post Date</TableHead>
+                <TableHead className="text-left bold">Description</TableHead>
+                <TableHead className="text-right bold">Amount</TableHead>
               </TableRow>
-            ))}
-          </TableBody>
-        </Table>
-      </CardContent>
-    </Card>
-    // <div className="w-full border rounded-md overflow-hidden">
-    //   <Table >
-    //     <TableHeader>
-    //       <TableRow>
-    //         <TableHead className="text-left bold">Card Number</TableHead>
-    //         <TableHead className="text-left bold">Sale Date</TableHead>
-    //         <TableHead className="text-left bold">Post Date</TableHead>
-    //         <TableHead className="text-left bold">Description</TableHead>
-    //         <TableHead className="text-right bold">Amount</TableHead>
-    //       </TableRow>
-    //     </TableHeader>
-    //     <TableBody>
-    //       {transactions.map((transaction) => (
-    //         <TableRow key={transaction.card_number} className="p-5 odd:bg-muted/50">
-    //           <TableCell className="text-left">{transaction.card_number}</TableCell>
-    //           <TableCell className="font-medium text-left">{transaction.sale_date}</TableCell>
-    //           <TableCell className="text-left">{transaction.post_date}</TableCell>
-    //           <TableCell className="text-left">{transaction.description}</TableCell>
-    //           <TableCell className="text-right">PHP {transaction.amount}</TableCell>
-    //         </TableRow>
-    //       ))}
-    //     </TableBody>
-    //   </Table>
-    // </div>
+            </TableHeader>
+            <TableBody>
+              {transactions.map((transaction) => (
+                <TableRow key={transaction.card_number} className="p-5 odd:bg-muted/50">
+                  <TableCell className="text-left">{transaction.card_number}</TableCell>
+                  <TableCell className="font-medium text-left">{transaction.sale_date}</TableCell>
+                  <TableCell className="text-left">{transaction.post_date}</TableCell>
+                  <TableCell className="text-left">{transaction.description}</TableCell>
+                  <TableCell className="text-right">PHP {transaction.amount}</TableCell>
+                </TableRow>
+              ))}
+            </TableBody>
+          </Table>
+        </CardContent>
+      </Card>
+    </>
   );
 }
 
